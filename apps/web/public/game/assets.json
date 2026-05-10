@@ -1,0 +1,9 @@
+{
+  "baseUrl": "/game",
+  "maps": {
+    "cozyRoom": "/game/maps/cozy-room.json"
+  },
+  "images": {},
+  "spritesheets": {},
+  "audio": {}
+}

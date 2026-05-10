@@ -1,0 +1,17 @@
+{
+  "columns": 0,
+  "name": "cozy-room",
+  "properties": [
+    {
+      "name": "pipeline",
+      "type": "string",
+      "value": "external-static-assets"
+    }
+  ],
+  "tilecount": 0,
+  "tiledversion": "1.10.2",
+  "tileheight": 16,
+  "tilewidth": 16,
+  "type": "tileset",
+  "version": "1.10"
+}

@@ -1,0 +1,110 @@
+{
+  "compressionlevel": -1,
+  "height": 80,
+  "infinite": false,
+  "layers": [
+    {
+      "data": [],
+      "height": 80,
+      "id": 1,
+      "name": "chao",
+      "opacity": 1,
+      "type": "tilelayer",
+      "visible": true,
+      "width": 120,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "objects": [
+        { "height": 64, "id": 1, "name": "parede-norte", "rotation": 0, "type": "wall", "visible": true, "width": 1920, "x": 0, "y": 0 },
+        { "height": 1280, "id": 2, "name": "parede-oeste", "rotation": 0, "type": "wall", "visible": true, "width": 16, "x": 0, "y": 0 },
+        { "height": 1280, "id": 3, "name": "parede-leste", "rotation": 0, "type": "wall", "visible": true, "width": 16, "x": 1904, "y": 0 },
+        { "height": 16, "id": 4, "name": "parede-sul", "rotation": 0, "type": "wall", "visible": true, "width": 1920, "x": 0, "y": 1264 }
+      ],
+      "id": 2,
+      "name": "paredes",
+      "opacity": 1,
+      "type": "objectgroup",
+      "visible": true,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "objects": [
+        { "height": 96, "id": 10, "name": "cama", "rotation": 0, "type": "decor", "visible": true, "width": 144, "x": 96, "y": 112 },
+        { "height": 128, "id": 11, "name": "armario", "rotation": 0, "type": "decor", "visible": true, "width": 80, "x": 272, "y": 128 },
+        { "height": 128, "id": 12, "name": "estante", "rotation": 0, "type": "decor", "visible": true, "width": 128, "x": 576, "y": 80 },
+        { "height": 64, "id": 13, "name": "mesa", "rotation": 0, "type": "decor", "visible": true, "width": 192, "x": 896, "y": 144 },
+        { "height": 80, "id": 14, "name": "aquario", "rotation": 0, "type": "decor", "visible": true, "width": 80, "x": 1104, "y": 192 }
+      ],
+      "id": 3,
+      "name": "decoracao",
+      "opacity": 1,
+      "type": "objectgroup",
+      "visible": true,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "objects": [
+        { "height": 96, "id": 20, "name": "cama", "rotation": 0, "type": "collision", "visible": true, "width": 144, "x": 96, "y": 112 },
+        { "height": 128, "id": 21, "name": "armario", "rotation": 0, "type": "collision", "visible": true, "width": 80, "x": 272, "y": 128 },
+        { "height": 128, "id": 22, "name": "estante", "rotation": 0, "type": "collision", "visible": true, "width": 128, "x": 576, "y": 80 },
+        { "height": 64, "id": 23, "name": "mesa", "rotation": 0, "type": "collision", "visible": true, "width": 192, "x": 896, "y": 144 },
+        { "height": 80, "id": 24, "name": "aquario", "rotation": 0, "type": "collision", "visible": true, "width": 80, "x": 1104, "y": 192 }
+      ],
+      "id": 4,
+      "name": "colisao",
+      "opacity": 1,
+      "type": "objectgroup",
+      "visible": false,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "objects": [
+        { "height": 64, "id": 30, "name": "desk", "rotation": 0, "type": "study", "visible": true, "width": 192, "x": 896, "y": 144 },
+        { "height": 128, "id": 31, "name": "shelf", "rotation": 0, "type": "inspect", "visible": true, "width": 128, "x": 576, "y": 80 },
+        { "height": 80, "id": 32, "name": "aquarium", "rotation": 0, "type": "inspect", "visible": true, "width": 80, "x": 1104, "y": 192 },
+        { "height": 32, "id": 33, "name": "pet-bed", "rotation": 0, "type": "inspect", "visible": true, "width": 32, "x": 960, "y": 656 }
+      ],
+      "id": 5,
+      "name": "objetos-interativos",
+      "opacity": 1,
+      "type": "objectgroup",
+      "visible": true,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "objects": [
+        { "height": 160, "id": 40, "name": "mesa-luz", "rotation": 0, "type": "warm", "visible": true, "width": 240, "x": 840, "y": 112 },
+        { "height": 128, "id": 41, "name": "janela-luz", "rotation": 0, "type": "cool", "visible": true, "width": 320, "x": 320, "y": 48 }
+      ],
+      "id": 6,
+      "name": "iluminacao",
+      "opacity": 1,
+      "type": "objectgroup",
+      "visible": true,
+      "x": 0,
+      "y": 0
+    }
+  ],
+  "nextlayerid": 7,
+  "nextobjectid": 42,
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "tiledversion": "1.10.2",
+  "tileheight": 16,
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "source": "../tilesets/cozy-room.tileset.json"
+    }
+  ],
+  "tilewidth": 16,
+  "type": "map",
+  "version": "1.10",
+  "width": 120
+}

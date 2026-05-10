@@ -1,3 +1,3 @@
 export { createStudyHallGame } from "./createStudyHallGame";
-export type { DestroyableGame, StudyHallHooks } from "./types";
+export type { ContextAction, DestroyableGame, HudStats, StudyHallHooks, TimeMode } from "./types";
 export { PlayScene } from "./scenes/PlayScene";
