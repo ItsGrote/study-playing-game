@@ -1,0 +1,23 @@
+{
+  "name": "realtime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@repo/shared": "*"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@types/node": "^20.17.50",
+    "eslint": "^9.27.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

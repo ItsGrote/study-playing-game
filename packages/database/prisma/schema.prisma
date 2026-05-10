@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Perfil público do jogador; `id` corresponde a `auth.users.id` no Supabase.
+model Profile {
+  id          String   @id @db.Uuid
+  username    String   @unique
+  displayName String?  @map("display_name") @db.VarChar(64)
+  bio         String?  @db.VarChar(500)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("profiles")
+}

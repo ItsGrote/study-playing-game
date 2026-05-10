@@ -1,0 +1,106 @@
+"use client";
+
+import Link from "next/link";
+import { useActionState } from "react";
+
+import { signUpAction, type AuthMessageState } from "@/lib/actions/auth";
+
+export default function SignUpPage() {
+  const [state, formAction, pending] = useActionState<AuthMessageState | null, FormData>(
+    signUpAction,
+    null,
+  );
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Criar conta</h1>
+        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+          Escolha um nome de usuário único e um e-mail válido.
+        </p>
+      </div>
+
+      <form action={formAction} className="flex flex-col gap-4">
+        {state?.error ? (
+          <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800 dark:bg-red-950/40 dark:text-red-200">
+            {state.error}
+          </p>
+        ) : null}
+        {state?.notice ? (
+          <p className="rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-100">
+            {state.notice}
+          </p>
+        ) : null}
+
+        <div className="flex flex-col gap-1">
+          <label className="text-sm font-medium text-zinc-800 dark:text-zinc-200" htmlFor="username">
+            Nome de usuário
+          </label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            autoComplete="username"
+            required
+            minLength={3}
+            maxLength={24}
+            pattern="[a-zA-Z0-9_]+"
+            title="Letras, números e underscore"
+            className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 outline-none ring-zinc-400 focus:ring-2 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-50"
+          />
+          <span className="text-xs text-zinc-500">3–24 caracteres; será armazenado em minúsculas.</span>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="text-sm font-medium text-zinc-800 dark:text-zinc-200" htmlFor="email">
+            E-mail
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            maxLength={254}
+            className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 outline-none ring-zinc-400 focus:ring-2 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-50"
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label
+            className="text-sm font-medium text-zinc-800 dark:text-zinc-200"
+            htmlFor="password"
+          >
+            Senha
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autoComplete="new-password"
+            required
+            minLength={8}
+            maxLength={128}
+            className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 outline-none ring-zinc-400 focus:ring-2 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-50"
+          />
+          <span className="text-xs text-zinc-500">Mínimo 8 caracteres.</span>
+        </div>
+
+        <button
+          type="submit"
+          disabled={pending}
+          className="mt-2 rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+        >
+          {pending ? "Criando…" : "Cadastrar"}
+        </button>
+      </form>
+
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        Já tem conta?{" "}
+        <Link className="font-medium text-zinc-900 underline dark:text-zinc-100" href="/login">
+          Entrar
+        </Link>
+      </p>
+    </div>
+  );
+}

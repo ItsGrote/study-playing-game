@@ -1,0 +1,12 @@
+{
+  "extends": "@repo/typescript-config/node.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "composite": true
+  },
+  "include": ["src/**/*.ts"]
+}

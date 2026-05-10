@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SPG — monorepo
 
-## Getting Started
+Estudo social multiplayer (planejado). Este repositório usa **Turborepo** com workspaces npm.
 
-First, run the development server:
+## Estrutura
+
+| Caminho | Descrição |
+|---------|-----------|
+| `apps/web` | Next.js (UI, auth e shell do jogo) |
+| `packages/game-client` | Engine Phaser offline (mapa, input, futuro multiplayer) |
+| `apps/realtime` | Servidor Node mínimo (placeholder até Socket.io) |
+| `packages/shared` | Schemas Zod, tipos e constantes compartilhados |
+| `packages/database` | Prisma (`profiles`) e cliente de banco |
+| `packages/typescript-config` | Presets TS (`base`, `nextjs`, `node`) |
+| `packages/eslint-config` | ESLint flat config compartilhada |
+
+## Requisitos
+
+- Node.js 20+
+- npm 10+ (o campo `packageManager` na raiz fixa a versão esperada pelo Turborepo 2.9+)
+
+Dependências entre pacotes do monorepo usam a versão `"*"` para o npm resolver automaticamente para o workspace local (evita o protocolo `workspace:`, incompatível com alguns ambientes).
+
+## Comandos na raiz
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev    # sobe web + realtime (Turbo)
+npm run build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Web:** [http://localhost:3000](http://localhost:3000)
+- **Realtime health:** [http://localhost:4001/health](http://localhost:4001/health)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Comandos por app
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npx turbo dev --filter=web
+npx turbo dev --filter=realtime
+```
 
-## Learn More
+O task `dev` do Turbo depende de `^build`, então pacotes como `@repo/shared` e `@repo/database` são preparados antes dos apps.
 
-To learn more about Next.js, take a look at the following resources:
+## Milestone M2 — Supabase + Auth + Perfil
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Crie um projeto no [Supabase](https://supabase.com) e copie **URL** e **anon key** (`Settings → API`).
+2. Em `Settings → Database`, copie a **connection string** (modo *direct* ou *session* recomendado para Prisma migrate).
+3. Copie `apps/web/.env.example` para `apps/web/.env.local` e preencha as variáveis.
+4. Aplique migrações Prisma no banco do Supabase:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   cd packages/database && npx prisma migrate deploy
+   ```
 
-## Deploy on Vercel
+   (ou `npx prisma migrate dev` em desenvolvimento, com `DATABASE_URL` apontando para o mesmo Postgres.)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. No Supabase, em **Authentication → URL Configuration**, adicione em **Redirect URLs**:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   - `http://localhost:3000/auth/callback` (dev)
+   - a mesma rota com a URL de produção quando existir.
+
+6. Defina **Site URL** coerente (ex.: `http://localhost:3000` em dev).
+
+Fluxos cobertos: cadastro, login, logout, sessão com cookies (middleware + `@supabase/ssr`), recuperação de senha (link → callback → `/update-password`), tabela `profiles` com `username` único e edição básica em `/profile`.
+
+## Milestone M5 — Phaser offline
+
+- Rota **`/play`**: menu inicial (React) + canvas Phaser.
+- Pacote **`@repo/game-client`**: cena, mapa tile-based procedural, personagem placeholder, WASD/setas, clique para caminhar (BFS), colisão por tiles, câmera suave, animações idle/walk, interações em objetos sem mover o personagem.
+- Estado de HUD leve com **Zustand** em `apps/web/features/game` (separado da simulação Phaser).
+
+## Next.js
+
+Este projeto usa Next.js com convenções que podem diferir de versões antigas; consulte `node_modules/next/dist/docs/` ao implementar APIs novas (ver `AGENTS.md`).
+
+O build pode avisar que a convenção `middleware` está em transição para `proxy` no Next 16; mantemos `middleware.ts` alinhado ao guia atual do Supabase SSR até migrarmos oficialmente.
